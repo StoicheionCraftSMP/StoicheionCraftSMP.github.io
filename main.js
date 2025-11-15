@@ -1,6 +1,6 @@
 // Set target time — Philippine Time (UTC+8)
 const launchDate = new Date();
-launchDate.setHours(10, 0, 0, 0);  // Today @ 10:00 AM
+launchDate.setHours(2, 0, 0, 0);  // Today @ 2:00 PM
 
 document.getElementById("launch-time").innerText =
     "Launching today at: " + launchDate.toLocaleString("en-PH");
@@ -29,3 +29,4 @@ function updateCountdown() {
 
 setInterval(updateCountdown, 1000);
 updateCountdown();
+
