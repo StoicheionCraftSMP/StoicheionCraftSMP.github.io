@@ -1,6 +1,6 @@
 // Set target time — Philippine Time (UTC+8)
 const launchDate = new Date();
-launchDate.setHours(14, 30, 0, 0);  // Today @ 2:30 PM
+launchDate.setHours(11, 30, 0, 0);  // Today @ 2:30 PM
 
 // Display launch time as "2:30 PM" only
 document.getElementById("launch-time").innerText =
