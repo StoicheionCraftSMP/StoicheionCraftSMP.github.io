@@ -200,7 +200,6 @@ function renderHome(){
       <div class="server-meta">
         <div class="meta-pill">Port: <strong>${serverPort}</strong></div>
         <div class="meta-pill">Version: <strong>1.20+</strong></div>
-        <div class="meta-pill">Players: <strong id="playerCount">—</strong></div>
       </div>
       <div style="display:flex;gap:.6rem;margin-top:.75rem">
         <button class="btn play" style="flex:1" onclick="joinMinecraft()">Play Now</button>
