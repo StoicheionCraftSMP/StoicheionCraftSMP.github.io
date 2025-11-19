@@ -1,5 +1,5 @@
 // CONFIG
-const maintenanceMode = true; // Set true to enable maintenance page
+const maintenanceMode = false; // Set true to enable maintenance page
 const serverIP = 'StoicheionCraftSMP.aternos.me';
 const serverPort = '61266';
 const blogPosts = [
@@ -369,4 +369,5 @@ function init(){
 }
 
 window.addEventListener('DOMContentLoaded', init);
+
 
