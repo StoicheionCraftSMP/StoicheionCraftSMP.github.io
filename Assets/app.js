@@ -1,12 +1,11 @@
 // CONFIG
 const maintenanceMode = false; // Set true to enable maintenance page
-const serverIP = 'StoicheionCraftSMP.aternos.me';
-const serverPort = '61266';
+const serverIP = 'StoicheionCraftSMPS3.aternos.me';
+const serverPort = '43087';
 const blogPosts = [
   {
     id: 1,
-    title: 'StoicheionCraft SMP ┤ StoicheionCraft SMP S3 launch',
-    description: 'Exciting news! StoicheionCraft SMP S3 is now live. Join the adventure, explore, and survive with friends!',
+    title: 'StoicheionCraft SMP S3 launch',
     content: `
 <p style="margin-bottom: 20px;">We are thrilled to officially announce the launch of S3. Explore new worlds, build epic structures, and enjoy the crossplay experience on Bedrock and Java editions. This season comes packed with new features, events, and community activities designed for everyone. After months of preparation, testing, and improvements, S3 is finally live! This season brings exciting new features, enhanced gameplay mechanics, and full crossplay support, allowing players from both Bedrock and Java editions to join the fun together seamlessly. No matter what platform you’re on, you can now explore, build, and survive alongside your friends without any limitations.</p>
 
@@ -22,7 +21,21 @@ const blogPosts = [
 `,
     date: '2025-11-16',
     image: 'Assets/Images/Blog/StoicheionCraft SMP - Blog.png?width=600&height=400'
-  }
+  },
+  {
+    id: 2,
+    title: 'Introducing Angel Chest: Never Lose Your Items Again',
+    content: `
+<p style="margin-bottom: 20px;">If you’ve ever died in Minecraft and lost all your hard-earned items, you know how frustrating it can be. With Angel Chest, that’s a worry of the past. If you’ve ever died in Minecraft and lost all your hard-earned items, you know how frustrating it can be. With Angel Chest, that’s a worry of the past.</p>
+
+<p style="margin-bottom: 20px;">What is Angel Chest?</p>
+
+<ul style="margin-bottom: 20px;">
+  <p style="margin-bottom: 10px;">Angel Chest is a special feature that automatically stores all your items when you die. A chest appears at the spot of your death, keeping everything safe until you return. Only you can open it, so your gear is always protected even from other players.</p>
+`,
+    date: '2025-11-19',
+    image: 'Assets/Images/Blog/Angel Chest - Blog 02.png'
+  },
 ];
 
 // CUSTOM NOTICE
@@ -33,10 +46,10 @@ const el = (q, ctx=document)=>ctx.querySelector(q);
 const els = (q, ctx=document)=>Array.from(ctx.querySelectorAll(q));
 const toast = el('#toast');
 
-function formatDate(dateStr) {
-  const [year, month, day] = dateStr.split('-').map(Number);
-  const date = new Date(year, month - 1, day);
-  return date.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+function formatDate(dateStr){
+  const d = new Date(dateStr);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return d.toLocaleDateString(undefined, options); // e.g., "November 16, 2025"
 }
 
 function showToast(msg='Copied'){ 
@@ -213,7 +226,7 @@ function renderHome(){
 }
 
 function renderBlog(){
-  document.title='StoicheionCraft SMP ┤ Blog';
+  document.title='StoicheionCraft SMP - Blog';
   const main = el('#mainContent');
   main.innerHTML = `
     <section class="section">
@@ -221,11 +234,14 @@ function renderBlog(){
       <div class="grid">
         ${blogPosts.map(post => `
           <article class="card">
-            <img src="${post.image}" alt="${post.title}">
+            <img src="${post.image}" alt="${post.title}" style="
+              width:100%;
+              height:300px;
+              object-fit:cover;
+              border-radius:8px;
+              margin-bottom:0.75rem;
+            ">
             <div class="title">${post.title}</div>
-            <div style="color: var(--muted); font-size: .95rem;">
-              ${post.content.length > 120 ? post.content.substring(0,120)+'...' : post.content}
-            </div>
             <div style="display:flex; justify-content:space-between; margin-top:auto;">
               <div class="meta">${formatDate(post.date)}</div>
               <div><button class="btn play" onclick="navigate('view',${post.id})">Read More</button></div>
@@ -233,9 +249,11 @@ function renderBlog(){
           </article>
         `).join('')}
       </div>
-    </section>`;
+    </section>
+  `;
   renderNotice();
 }
+
 
 function renderAbout(){
   document.title='StoicheionCraft SMP ┤ About';
@@ -270,35 +288,29 @@ function renderBlogView(id){
   const post = blogPosts.find(p => p.id === id);
   if(!post) return navigate('blog');
 
-  document.title = `${post.title} — StoicheionCraft SMP ┤ Blog`;
+  document.title = `${post.title} — StoicheionCraft SMP`;
 
   el('#mainContent').innerHTML = `
-    <section class="section blog-view">
+    <section class="section blog-view" style="max-width:800px; margin:0 auto;">
+
+      <!-- Title and Date first -->
       <div style="margin-bottom:1rem;">
-        <button class="btn secondary" onclick="navigate('blog')">← Back to Blog</button>
+        <h2 style="margin-bottom:0.25rem;">${post.title}</h2>
+        <span style="font-size:.9rem; color:#999;">${formatDate(post.date)}</span>
       </div>
-      <div class="blog-banner" style="position:relative; overflow:hidden; border-radius:12px;">
-        <img src="${post.image}" alt="${post.title}" style="width:100%; height:400px; object-fit:cover;">
-        <div class="blog-banner-overlay" style="
-          position:absolute;
-          bottom:0;
-          left:0;
-          right:0;
-          background:rgba(0,0,0,0.6);
-          color:#fff;
-          padding:1.5rem;
-          display:flex;
-          flex-direction:column;
-          justify-content:flex-end;
-        ">
-          <h2 style="margin:0 0 0.5rem 0;">${post.title}</h2>
-          <span style="font-size:.9rem; color:#ccc;">${formatDate(post.date)}</span>
-        </div>
+
+      <!-- Full Image Banner -->
+      <div class="blog-banner" style="width:100%; margin-bottom:1.5rem; border-radius:12px; overflow:hidden;">
+        <img src="${post.image}" alt="${post.title}" style="width:100%; height:auto; display:block;">
       </div>
-      <div class="blog-content" style="margin-top:1.5rem; line-height:1.6; color:var(--text-color, #fff);">
-        <p>${post.content}</p>
+
+      <!-- Blog Content -->
+      <div class="blog-content">
+        ${post.content}
       </div>
-    </section>`;
+
+    </section>
+  `;
   renderNotice();
 }
 
@@ -369,5 +381,3 @@ function init(){
 }
 
 window.addEventListener('DOMContentLoaded', init);
-
-
