@@ -39,7 +39,9 @@ const blogPosts = [
 ];
 
 // CUSTOM NOTICE
-let customNoticeText = '';
+let customNoticeText = `Looks like /rtp system is currently unavailable right now. Please visit our 
+<a href="https://stoicheioncraftsmp.instatus.com/cmi5ylatb0780ub9jt4q2265g" target="_blank" style="color:#fff; text-decoration:underline;">Status Page</a> 
+for more information.`;
 
 // HELPERS
 const el = (q, ctx=document)=>ctx.querySelector(q);
@@ -381,3 +383,4 @@ function init(){
 }
 
 window.addEventListener('DOMContentLoaded', init);
+
