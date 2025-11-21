@@ -1,5 +1,5 @@
 0// CONFIG
-const maintenanceMode = true; // Set true to enable maintenance page
+const maintenanceMode = false; // Set true to enable maintenance page
 const serverIP = 'StoicheionCraftSMPS3.aternos.me';
 const serverPort = '43087';
 const blogPosts = [
@@ -39,7 +39,7 @@ const blogPosts = [
 ];
 
 // CUSTOM NOTICE
-let customNoticeText = `The website will be undergoing maintenance later today from 5:00 PM to 7:30 PM.`;
+let customNoticeText = ``;
 
 // HELPERS
 const el = (q, ctx=document)=>ctx.querySelector(q);
