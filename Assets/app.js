@@ -39,9 +39,7 @@ const blogPosts = [
 ];
 
 // CUSTOM NOTICE
-let customNoticeText = ` 
-<a href="" target="_blank" style="color:#fff; text-decoration:underline;"></a> 
-`;
+let customNoticeText = ``;
 
 // HELPERS
 const el = (q, ctx=document)=>ctx.querySelector(q);
@@ -383,4 +381,5 @@ function init(){
 }
 
 window.addEventListener('DOMContentLoaded', init);
+
 
