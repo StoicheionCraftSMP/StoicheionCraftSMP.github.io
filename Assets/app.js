@@ -1,4 +1,4 @@
-// CONFIG
+0// CONFIG
 const maintenanceMode = false; // Set true to enable maintenance page
 const serverIP = 'StoicheionCraftSMPS3.aternos.me';
 const serverPort = '43087';
@@ -39,9 +39,9 @@ const blogPosts = [
 ];
 
 // CUSTOM NOTICE
-let customNoticeText = `Looks like /rtp system is currently unavailable right now. Please visit our 
-<a href="https://stoicheioncraftsmp.instatus.com/cmi5ylatb0780ub9jt4q2265g" target="_blank" style="color:#fff; text-decoration:underline;">Status Page</a> 
-for more information.`;
+let customNoticeText = ` 
+<a href="" target="_blank" style="color:#fff; text-decoration:underline;"></a> 
+`;
 
 // HELPERS
 const el = (q, ctx=document)=>ctx.querySelector(q);
