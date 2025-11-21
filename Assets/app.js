@@ -39,7 +39,7 @@ const blogPosts = [
 ];
 
 // CUSTOM NOTICE
-let customNoticeText = ``;
+let customNoticeText = `The website will be undergoing maintenance later today from 5:00 PM to 7:30 PM.`;
 
 // HELPERS
 const el = (q, ctx=document)=>ctx.querySelector(q);
@@ -381,5 +381,6 @@ function init(){
 }
 
 window.addEventListener('DOMContentLoaded', init);
+
 
 
