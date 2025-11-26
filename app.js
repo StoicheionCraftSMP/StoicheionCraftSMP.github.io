@@ -57,7 +57,7 @@ function renderNotice(){
 function renderHeader(){
   el('#header').innerHTML = `
   <div class="logo">
-    <img src="Assets/Images/StoicheionCraft SMP - Logo.png" alt="Logo">
+    <img src="Assets/Images/StoicheionCraft SMP (Christmas) - PFP (Logo).png" alt="Logo">
     <div><h1>StoicheionCraft SMP</h1><span>Bedrock & Java - Crossplay Friendly</span></div>
   </div>
   <div class="nav-wrap">
