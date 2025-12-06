@@ -41,6 +41,7 @@ function openDiscord(){ openLink('https://discord.gg/3KAyEe2neQ'); }
 
 // NOTICE
 let customNoticeText = ``;
+
 function renderNotice(){
   if(!customNoticeText || !customNoticeText.trim()) return;
   let notice = el('#notice');
@@ -53,11 +54,54 @@ function renderNotice(){
   notice.innerHTML = customNoticeText;
 }
 
+// === COUNTDOWN TO 2:30 PM FIGHT ===
+function getNext230PM() {
+  const now = new Date();
+  const target = new Date();
+
+  target.setHours(14, 30, 0, 0); // 2:30 PM
+
+  // if it's already past 2:30 PM today, schedule for tomorrow
+  if (target < now) {
+    target.setDate(target.getDate() + 1);
+  }
+
+  return target;
+}
+
+let countdownTarget = getNext230PM();
+
+function startCountdownNotice() {
+  function update() {
+    const now = new Date();
+    const diff = countdownTarget - now;
+
+    if (diff <= 0) {
+      customNoticeText = `<strong>⚔️ The fight has started!</strong>`;
+      renderNotice();
+      return;
+    }
+
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+
+    customNoticeText = `
+      <strong>Fight starts:</strong> ${h}h ${m}m ${s}s
+    `;
+
+    renderNotice();
+  }
+
+  update();
+  setInterval(update, 1000);
+}
+
 // HEADER
 function renderHeader(){
   el('#header').innerHTML = `
   <div class="logo">
-    <img src="Assets/Images/StoicheionCraft SMP - Logo.png" alt="Logo">
+    <img src="Assets/Images/StoicheionCraft SMP (Christmas) - PFP (Logo).png" alt="Logo">
     <div><h1>StoicheionCraft SMP</h1><span>Bedrock & Java - Crossplay Friendly</span></div>
   </div>
   <div class="nav-wrap">
@@ -121,7 +165,6 @@ function renderFooter() {
   `;
 }
 
-
 // SERVER STATUS
 async function updateServerStatus(){
   const playerElem = el('#playerCount');
@@ -184,13 +227,12 @@ function renderHome(){
   updateServerStatus();
 }
 
-// FETCH BLOG POSTS FROM GOOGLE BLOGGER
+// FETCH BLOG POSTS
 async function fetchBloggerPosts() {
   try {
     const res = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${BLOG_ID}/posts?key=${API_KEY}`);
     const data = await res.json();
     return data.items.map((item, index) => {
-      // Try to get image from item.images array or extract first <img> from content
       let img = item.images?.[0]?.url || null;
       if (!img) {
         const match = item.content.match(/<img.*?src="(.*?)"/);
@@ -202,7 +244,7 @@ async function fetchBloggerPosts() {
         title: item.title,
         content: item.content,
         date: item.published,
-        image: img, // this will now have the first image from content
+        image: img,
         video: null
       };
     });
@@ -246,7 +288,7 @@ function renderBlogView(id){
       <h2>${post.title}</h2>
       <span style="font-size:.9rem; color:#999;">${formatDate(post.date)}</span>
       <div class="blog-content">
-        ${post.content} <!-- use content directly; do NOT add post.image -->
+        ${post.content}
       </div>
     </section>
   `;
@@ -307,14 +349,14 @@ function sendBanAppeal(username, reason){
   });
 }
 
-// The rest of your functions: renderAbout, renderAppeal, renderMaintenance, render404, sendBanAppeal...
-// (You can copy those from your previous JS, they stay the same)
-
 // INIT
 async function init(){
   if(maintenanceMode) return renderMaintenance();
   renderHeader();
   renderFooter();
+
+  startCountdownNotice(); // ← Countdown to 2:30 PM activated
+
   const hash=location.hash.replace('#','');
   if(hash.startsWith('view-')) navigate('view',parseInt(hash.split('-')[1]));
   else if(hash==='blog') navigate('blog');
@@ -323,4 +365,5 @@ async function init(){
   else if(hash==='home'||hash==='') navigate('home');
   else render404();
 }
+
 window.addEventListener('DOMContentLoaded', init);
